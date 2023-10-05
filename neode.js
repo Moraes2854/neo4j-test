@@ -10,9 +10,27 @@ const instance = new Neode(uri, user, password);
 
 async function main(){
     instance.model('Person', Person);
-    // const person = await instance.create('Person', { name: 'Santiago' });
+    await createSeveral();
+    const persons = await findAll();
+    console.log(persons);
+}
+
+async function createSeveral(){
+    await instance.create('Person', { name: 'Santiago' });
+    await instance.create('Person', { name: 'Juan' });
+    await instance.create('Person', { name: 'Martin' });
+    await instance.create('Person', { name: 'Pablo' });
+    await instance.create('Person', { name: 'Mariano' });
+}
+
+async function findAll(){
     const persons = await instance.all('Person');
-    console.log(await persons.toJson());
+    const finalPersons = await persons.toJson();
+    return finalPersons;
+}
+
+async function deleteAll(){
+    await instance.deleteAll('Person');
 }
 
 main();
